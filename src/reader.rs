@@ -1,6 +1,6 @@
 use linefeed::{Interface, DefaultTerminal, ReadResult};
 
-const FILE_HISTORY: &str = ".history";
+const FILE_HISTORY: &str = "history.txt";
 const PROMPT_MESSAGE: &str = "ldb >>> ";
 
 pub struct Reader {
@@ -30,6 +30,10 @@ impl Reader {
         if !line.trim().is_empty() {
             self.get_interface()
                 .add_history_unique(line.clone());
+
+            // TODO: send to a command like [history save]
+            // self.get_interface()
+            //     .save_history(FILE_HISTORY);
         }
     }
 
