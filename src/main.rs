@@ -3,7 +3,7 @@ use clap::{Arg, App, SubCommand};
 use linefeed::{Interface, ReadResult};
 use std::borrow::Borrow;
 use std::ptr::read;
-
+const FILE_HISTORY: &str = ".history";
 
 fn main() {
     let matches = App::new("ldb")
@@ -12,12 +12,16 @@ fn main() {
         .about("A Database developed using Rust.")
         .get_matches();
 
-
     let mut reader = Interface::new("ldb")
         .expect("Can't create a new application.");
 
     reader.set_prompt("ldb >>> ")
         .expect("Can't set a prompt.");
+
+    // Load history
+    if reader.load_history(FILE_HISTORY).is_err() {
+        println!("No History.");
+    }
 
     loop {
         let line = reader
