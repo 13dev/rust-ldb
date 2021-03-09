@@ -5,11 +5,10 @@ const PROMPT_MESSAGE: &str = "ldb >>> ";
 
 pub struct Reader {
     interface: Interface<DefaultTerminal>,
-
 }
 
 impl Reader {
-    pub(crate) fn new() -> Self {
+    pub fn new() -> Self {
         let mut reader = Interface::new("ldb")
             .expect("Can't create a new application.");
 
@@ -27,18 +26,18 @@ impl Reader {
         }
     }
 
-    pub(crate) fn save_history(&self, line: &String) {
+    pub fn save_history(&self, line: &String) {
         if !line.trim().is_empty() {
             self.get_interface()
                 .add_history_unique(line.clone());
         }
     }
 
-    fn get_interface(&self) -> &Interface<DefaultTerminal> {
+    pub fn get_interface(&self) -> &Interface<DefaultTerminal> {
         &self.interface
     }
 
-    pub(crate) fn read_line(&self) -> ReadResult {
+    pub fn read_line(&self) -> ReadResult {
         self.get_interface()
             .read_line()
             .expect("Cant read line.")
