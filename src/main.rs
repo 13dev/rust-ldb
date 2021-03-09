@@ -1,10 +1,10 @@
-use clap::{Arg, App, SubCommand};
+mod reader;
 
+use clap::{Arg, App, SubCommand};
 use linefeed::{Interface, ReadResult, DefaultTerminal};
 use std::borrow::Borrow;
 use std::ptr::read;
-mod reader;
-use reader::*;
+use reader::{Reader};
 
 fn main() {
     let _matches = App::new("ldb")
