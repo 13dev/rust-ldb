@@ -1,4 +1,6 @@
 mod reader;
+mod lexer;
+mod helpers;
 
 use clap::{Arg, App, SubCommand};
 use linefeed::{Interface, ReadResult, DefaultTerminal};
@@ -17,6 +19,8 @@ fn main() {
 
     while let ReadResult::Input(input) = reader.read_line() {
         reader.save_history(&input);
+
+        lexer::Lexer::new(&line);
 
         println!("got input {:?}", input);
     }
