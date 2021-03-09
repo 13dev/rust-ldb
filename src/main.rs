@@ -16,7 +16,7 @@ fn main() {
     let mut reader = Interface::new("ldb")
         .expect("Can't create a new application.");
 
-    reader.set_prompt("my-app> ")
+    reader.set_prompt("ldb >>> ")
         .expect("Can't set a prompt.");
 
     loop {
