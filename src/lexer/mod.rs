@@ -28,7 +28,9 @@ pub struct Lexer {
 
 impl Lexer {
     pub fn new(statement: &String) -> Self {
-        let (operation, args) = helpers::split_first_word(&statement);
+        let (operation, args) = get_operation(&statement);
+
+
         let token = match Token::from_str(&operation) {
             Ok(res) => res,
             Err(err) => {
@@ -45,5 +47,18 @@ impl Lexer {
 
     pub fn get_action(&self) -> &Token {
         &self.token
+    }
+
+    fn process_input(&self, input: &String) -> &String {
+        &input.trim().to_lowercase()
+    }
+
+    fn get_operation(s: &str) -> (&str, &str) {
+        let s = s.trim();
+
+        match s.find(|ch: char| ch.is_whitespace()) {
+            Some(pos) => (&s[..pos], s[pos..].trim_start()),
+            None => (s, "")
+        }
     }
 }
