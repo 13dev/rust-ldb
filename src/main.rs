@@ -7,6 +7,8 @@ use linefeed::{Interface, ReadResult, DefaultTerminal};
 use std::borrow::Borrow;
 use std::ptr::read;
 use reader::{Reader};
+use crate::lexer::Token;
+use std::process;
 
 fn main() {
     let _matches = App::new("ldb")
@@ -20,9 +22,15 @@ fn main() {
     while let ReadResult::Input(input) = reader.read_line() {
         reader.save_history(&input);
 
-        let a = lexer::Lexer::new(&input);
+        let a = lexer::Lexer::new(&input.to_lowercase());
 
-        println!("got input {:?}", input);
+        // Parser
+        match a.get_action() {
+            Token::Exit => process::exit(0),
+            Token(a) => println!("got input {:?}", input),
+        }
+
+
     }
 
     println!("Goodbye.");
