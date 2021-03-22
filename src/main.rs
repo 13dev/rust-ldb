@@ -20,7 +20,7 @@ fn main() {
     while let ReadResult::Input(input) = reader.read_line() {
         reader.save_history(&input);
 
-        lexer::Lexer::new(&line);
+        let a = lexer::Lexer::new(&input);
 
         println!("got input {:?}", input);
     }
