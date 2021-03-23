@@ -4,8 +4,8 @@ mod helpers;
 
 use clap::{Arg, App, SubCommand};
 use linefeed::{Interface, ReadResult, DefaultTerminal};
-use std::borrow::Borrow;
-use std::ptr::read;
+
+
 use reader::{Reader};
 use std::process;
 use lexer::tokens::Tokens;

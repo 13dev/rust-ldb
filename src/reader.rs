@@ -9,7 +9,7 @@ pub struct Reader {
 
 impl Reader {
     pub fn new() -> Self {
-        let mut reader = Interface::new("ldb")
+        let reader = Interface::new("ldb")
             .expect("Can't create a new application.");
 
         // Set prompt

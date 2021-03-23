@@ -1,10 +1,10 @@
 pub(crate) mod tokens;
 
-use std::fmt::{self, Debug, Display};
-use std::ops::Deref;
-use crate::helpers;
-use strum_macros::AsRefStr;
-use strum_macros::EnumString;
+
+
+
+
+
 use std::str::FromStr;
 use tokens::Tokens;
 
@@ -21,7 +21,7 @@ impl Lexer {
 
         let token = match Tokens::from_str(&operation) {
             Ok(res) => res,
-            Err(err) => {
+            Err(_err) => {
                 println!("ERR: Statement [{}] not found!", &operation);
                 Tokens::Invalid
             }
