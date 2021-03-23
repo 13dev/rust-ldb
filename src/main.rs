@@ -7,8 +7,8 @@ use linefeed::{Interface, ReadResult, DefaultTerminal};
 use std::borrow::Borrow;
 use std::ptr::read;
 use reader::{Reader};
-use crate::lexer::Token;
 use std::process;
+use lexer::tokens::Tokens;
 
 fn main() {
     let _matches = App::new("ldb")
@@ -26,8 +26,8 @@ fn main() {
 
         // Parser
         match a.get_action() {
-            Token::Exit => process::exit(0),
-            Token(a) => println!("got input {:?}", input),
+            Tokens::Exit => process::exit(0),
+            _ => println!("got input {:?}", input),
         }
 
 

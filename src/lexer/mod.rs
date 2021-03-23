@@ -1,41 +1,29 @@
+pub(crate) mod tokens;
+
 use std::fmt::{self, Debug, Display};
 use std::ops::Deref;
 use crate::helpers;
 use strum_macros::AsRefStr;
 use strum_macros::EnumString;
 use std::str::FromStr;
+use tokens::Tokens;
 
-#[derive(Debug, PartialEq, EnumString)]
-#[strum(serialize_all = "snake_case")]
-pub enum Token {
-    Insert,
-    Update,
-    Create,
-    Delete,
-    #[strum(serialize = ".exit")]
-    Exit,
-    Clear,
-
-    #[strum(disabled)]
-    Invalid,
-}
 
 pub struct Lexer {
-    token: Token,
+    token: Tokens,
     args: String,
 }
 
-
 impl Lexer {
     pub fn new(statement: &String) -> Self {
-        let (operation, args) = get_operation(&statement);
+        let (operation, args) = Self::get_operation(&statement);
 
 
-        let token = match Token::from_str(&operation) {
+        let token = match Tokens::from_str(&operation) {
             Ok(res) => res,
             Err(err) => {
                 println!("ERR: Statement [{}] not found!", &operation);
-                Token::Invalid
+                Tokens::Invalid
             }
         };
 
@@ -45,12 +33,12 @@ impl Lexer {
         }
     }
 
-    pub fn get_action(&self) -> &Token {
+    pub fn get_action(&self) -> &Tokens {
         &self.token
     }
 
-    fn process_input(&self, input: &String) -> &String {
-        &input.trim().to_lowercase()
+    fn process_input(&self, input: &String) -> String {
+        input.trim().to_lowercase()
     }
 
     fn get_operation(s: &str) -> (&str, &str) {
