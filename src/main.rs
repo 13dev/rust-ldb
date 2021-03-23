@@ -4,8 +4,6 @@ mod helpers;
 
 use clap::{Arg, App, SubCommand};
 use linefeed::{Interface, ReadResult, DefaultTerminal};
-
-
 use reader::{Reader};
 use std::process;
 use lexer::tokens::Tokens;
@@ -29,8 +27,6 @@ fn main() {
             Tokens::Exit => process::exit(0),
             _ => println!("got input {:?}", input),
         }
-
-
     }
 
     println!("Goodbye.");
