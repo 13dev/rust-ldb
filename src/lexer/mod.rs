@@ -4,12 +4,12 @@ use std::str::FromStr;
 use tokens::Tokens;
 
 pub struct Lexer {
-    token: Tokens,
-    args: Option<String>,
+    pub token: Tokens,
+    pub args: Option<String>,
 }
 
 impl Lexer {
-    pub fn new(statement: &str) -> Self {
+    pub(crate) fn new(statement: &str) -> Self {
         let (operation, args) = Self::get_operation(statement);
 
         let token = match Tokens::from_str(operation) {
@@ -20,7 +20,7 @@ impl Lexer {
             }
         };
 
-        Self { token, args: args }
+        Self { token, args }
     }
 
     pub fn get_action(&self) -> &Tokens {

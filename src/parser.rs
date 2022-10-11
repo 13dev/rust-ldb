@@ -1,4 +1,4 @@
-use crate::Tokens;
+use crate::{Lexer, Tokens};
 use std::process;
 
 pub struct Parser {
@@ -6,7 +6,7 @@ pub struct Parser {
 }
 
 impl Parser {
-    pub fn handle_insert() -> () {
+    pub fn handle_insert(args: &Option<String>) -> () {
         todo!()
     }
     pub fn handle_exit() {

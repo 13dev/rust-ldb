@@ -3,6 +3,8 @@ mod lexer;
 mod parser;
 mod reader;
 
+use std::env::args;
+use crate::lexer::Lexer;
 use crate::parser::Parser;
 use clap::{App, Arg, SubCommand};
 use lexer::tokens::Tokens;
@@ -24,12 +26,12 @@ fn main() {
     while let ReadResult::Input(input) = reader.read_line() {
         reader.save_history(&input);
 
-        let a = lexer::Lexer::new(&input.to_lowercase());
+        let Lexer {token, args} = Lexer::new(&input.to_lowercase());
 
         // Parser
-        match a.get_action() {
+        match token {
             Tokens::Exit => Parser::handle_exit(),
-            Tokens::Insert => Parser::handle_insert(),
+            Tokens::Insert => Parser::handle_insert(&args),
             Tokens::Update => unimplemented!(),
             Tokens::Create => unimplemented!(),
             Tokens::Delete => unimplemented!(),
